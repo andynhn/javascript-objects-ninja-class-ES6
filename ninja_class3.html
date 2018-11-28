@@ -1,0 +1,135 @@
+<!-- By Andy Nguyen -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninja Class 3 Assignment</title>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function(){
+            class Ninja {
+                constructor(name) {
+                    this.name = name;
+                    this.health = 100;
+                    this.speed = 3;
+                    this.strength = 3;
+                }
+                sayName() {
+                    console.log(`My ${this.constructor.name} name is ${this.name}!`);
+                    return this;
+                }
+                showStats() {
+                    console.log(`Name: ${this.name}, Health: ${this.health}, Speed: ${this.speed}, Strength: ${this.strength}`);
+                    return this;
+                }
+                drinkSake() {
+                    console.log("This sake is amazing. I'm rejuvenated! (+10 health)")
+                    this.health = this.health + 10;
+                    return this;
+                }
+                punch(ninja) {
+                    if (ninja instanceof Ninja){
+                        ninja.health = ninja.health - 5;
+                        console.log(`${ninja.name} was punched by ${this.name} and lost 5 Health!`);
+                    } else {
+                        console.log('Invalid input. Object instance is not an instance of the Ninja object.')
+                    }
+
+                }
+                kick(ninja) {
+                    if (ninja instanceof Ninja){
+                        var damage = strength*15;
+                        ninja.health = ninja.health - damage;
+                        console.log(`${ninja.name} was kicked by ${this.name}! ${this.name} has a strength of ${this.strength}. ${ninja.name} lost  ${damage} Health!"`);
+                    } else {
+                        console.log('Invalid input. Object instance is not an instance of the Ninja object.')
+                    }
+                    
+                }
+
+            }
+
+            class Sensei extends Ninja {    // Child class
+                constructor(name) {
+                    super(name);
+                    this.health = 200;
+                    this.speed = 10;
+                    this.strength = 10;
+                    this.wisdom = 10;
+                }
+                speakWisdom() {
+                    super.drinkSake();  //used super to call the parent method in the Ninja class
+                    console.log("It's always better to admire the best among our foes rather than the worst among our friends.")
+                }
+            }
+            
+
+            var blueNinja = new Ninja("Goemon");
+            var redNinja = new Ninja("Bill");
+            redNinja.sayName();
+            blueNinja.sayName();
+            redNinja.punch(blueNinja);
+            blueNinja.showStats();
+            blueNinja.punch(redNinja);
+            redNinja.showStats();
+            redNinja.drinkSake();
+            redNinja.showStats();
+            blueNinja.showStats();
+            const superSensei = new Sensei("Master Splinter");
+            superSensei.sayName();
+            superSensei.showStats();
+            superSensei.speakWisdom();
+            superSensei.showStats();
+
+
+        });
+    </script>
+</head>
+<body>
+    <h1>Assignment: Ninja Class</h1>
+    <p>Create a new object constructor called Ninja with the following attributes:</p>
+    <ul>
+        <li>name</li>
+        <li>health</li>
+        <li>speed (private)</li>
+        <li>strengt (private)</li>
+    </ul>
+    <p>Speed and strength should be 3 by default. Health should be 100 by default.</p>
+    <p>Ninja should have the following methods:</p>
+    <ul>
+        <li>sayName() - This should log that Ninja's name to the console.</li>
+        <li>showStats() - This should show the Ninja's name, strength, speed, and health.</li>
+        <li>drinkSake() - This should add +10 Health to the Ninja</li>
+    </ul>
+    
+    <h1>Assignment: Ninja 2 Class</h1>
+    <p>Add a new method to Ninja called .punch(). This method will take another Ninja instance and subtract 5 Health from the Ninja we passed in. Your .punch() should display a console message.</p>
+    <p>Now add a method to your Ninja class called .kick(). Kick will subtract 15 Health for each point of Strength the calling Ninja has, and like .punch() will take another Ninja instance.</p>
+    <p>Update .punch() and .kick() so that they only accept Instances of Ninja. Hint: You will need to find a way to check the constructor of an instance. You will often need to consult outside documentation to find solutions for particular features.</p>
+    
+    <h1>Assignment: Ninja 3 Class</h1>
+    <h4>Part 1: Recreate Using ES6</h4>
+    <p>Recreate the base Ninja class from scratch using ES6 classes. Your Ninja needs the following public attributes (do not worry about private variables for this assignment):</p>
+    <ul>
+        <li>name</li>
+        <li>health</li>
+        <li>speed</li>
+        <li>strength</li>
+    </ul>
+    <p>Speed and strength should be 3 by default. Health should be 100 by default.</p>
+    <p>Ninja should have the following methods:</p>
+    <ul>
+        <li>sayName() - This should log that Ninja's name to the console.</li>
+        <li>showStats() - This should show the Ninja's name, strength, speed, and health.</li>
+        <li>drinkSake() - This should add +10 Health to the Ninja</li>
+    </ul>
+    <h4>Part 2: Sensei Class</h4>
+    <p>Extend the Ninja class and create the Sensei class. A Sensei should have 200 Health, 10 speed, and 10 strength by default. In addition, a Sensei should have a new attribute called wisdom, and the default should be 10. Finally, add the speakWisdom() method. speakWisdom() should call the drinkSake() method from the Ninja class, before console.logging a wise message.</p>
+</body>
+</html>
